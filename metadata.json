@@ -1,0 +1,7 @@
+{
+  "name": "T.A.I",
+  "description": "A high-performance multi-agent system for automated exam grading using the Provider Pattern and Gemini AI. Features OCR extraction, visual reasoning, and question-centric grading workflows.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
