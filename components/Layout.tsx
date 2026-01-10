@@ -1,12 +1,18 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Bot, GraduationCap, Search, Bell, LogOut } from 'lucide-react';
 import { cn } from './ui/Buttons';
 import { Database } from '../lib/db';
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+  onLogout?: () => void;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, onLogout }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const user = Database.currentUser;
 
@@ -14,6 +20,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { label: 'Overview', icon: LayoutDashboard, href: '/' },
     { label: 'AI Center', icon: Bot, href: '/agents' },
   ];
+
+  const handleSignOut = () => {
+    if (onLogout) onLogout();
+    navigate('/login');
+  };
 
   return (
     <div className="flex h-full bg-[#FDF8F3]">
@@ -61,7 +72,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <div className="text-[9px] text-[#9988A1] uppercase font-bold tracking-widest">{user.role}</div>
               </div>
             </div>
-            <button className="w-full py-1.5 text-[10px] font-bold uppercase text-[#9988A1] hover:text-[#E35336] transition-colors flex items-center justify-center gap-2">
+            <button 
+              onClick={handleSignOut}
+              className="w-full py-1.5 text-[10px] font-bold uppercase text-[#9988A1] hover:text-[#E35336] transition-colors flex items-center justify-center gap-2"
+            >
               <LogOut size={14} />
               Sign Out
             </button>
