@@ -7,7 +7,6 @@ export class InitialCheckAgent {
   static async run(submission: Submission): Promise<void> {
     try {
       submission.status = SubmissionStatus.PROCESSING;
-      Database.saveSubmission(submission);
 
       const ocr = ProviderRegistry.getOCR();
       const vision = ProviderRegistry.getVision();
