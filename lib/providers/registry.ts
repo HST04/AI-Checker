@@ -1,20 +1,24 @@
-
 import { IOCRProvider, IVisionAgent, IGradingProvider } from './interfaces';
 import { GeminiOCRProvider, GeminiVisionAgent, GeminiGradingProvider } from './gemini-providers';
 import { MockOCRProvider, MockVisionAgent, MockGradingProvider } from './mock-providers';
 
 export class ProviderRegistry {
-  private static apiKey = process.env.API_KEY || "";
+  private static getApiKey(): string {
+    return process.env.API_KEY || "";
+  }
 
   static getOCR(): IOCRProvider {
-    return this.apiKey ? new GeminiOCRProvider(this.apiKey) : new MockOCRProvider();
+    const apiKey = this.getApiKey();
+    return apiKey ? new GeminiOCRProvider(apiKey) : new MockOCRProvider();
   }
 
   static getVision(): IVisionAgent {
-    return this.apiKey ? new GeminiVisionAgent(this.apiKey) : new MockVisionAgent();
+    const apiKey = this.getApiKey();
+    return apiKey ? new GeminiVisionAgent(apiKey) : new MockVisionAgent();
   }
 
   static getGrading(): IGradingProvider {
-    return this.apiKey ? new GeminiGradingProvider(this.apiKey) : new MockGradingProvider();
+    const apiKey = this.getApiKey();
+    return apiKey ? new GeminiGradingProvider(apiKey) : new MockGradingProvider();
   }
 }
