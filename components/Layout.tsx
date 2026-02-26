@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Bot, GraduationCap, Search, Bell, LogOut } from 'lucide-react';
 import { cn } from './ui/Buttons';
@@ -13,7 +13,6 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, onLogout }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
   const user = Database.currentUser;
 
   const navItems = [
@@ -93,8 +92,6 @@ const Layout: React.FC<LayoutProps> = ({ children, onLogout }) => {
                 type="text"
                 placeholder="Search resources..."
                 className="w-full bg-black/5 border border-transparent rounded-lg py-1.5 pl-10 pr-4 text-sm font-medium text-[#4A3731] focus:bg-white focus:border-[#E35336]/20 outline-none transition-all"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
