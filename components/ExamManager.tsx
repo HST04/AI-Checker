@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Database } from '../lib/db';
+import { generateId, generateRollNumber } from '../lib/utils';
 import { Course, Submission, SubmissionStatus } from '../lib/types';
 import { Card, Button, Badge, cn } from './ui/Buttons';
 import { 
@@ -40,10 +41,10 @@ const ExamManager: React.FC = () => {
           reader.onload = () => {
             const base64 = reader.result as string;
             const newSub: Submission = {
-              id: Math.random().toString(36).substring(7),
+              id: generateId(),
               examId: id,
               studentName: file.name.split('.')[0],
-              rollNumber: `RN-${Math.floor(1000 + Math.random() * 9000)}`,
+              rollNumber: generateRollNumber(),
               examCategory: selectedCategory === 'All' ? (course.testCategories[0] || 'Uncategorized') : selectedCategory,
               imageUrl: base64,
               mimeType: file.type || (file.name.endsWith('.pdf') ? 'application/pdf' : 'image/jpeg'),

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Database } from '../lib/db';
+import { generateId } from '../lib/utils';
 import { Course, ActivityLog, SubmissionStatus } from '../lib/types';
 import { Card, Button, Badge, cn } from './ui/Buttons';
 import { 
@@ -91,7 +92,7 @@ const Dashboard: React.FC = () => {
       alert("Please select at least one exam category.");
       return;
     }
-    const id = Math.random().toString(36).substring(7);
+    const id = generateId();
     Database.saveCourse({ 
       ...newCourse, 
       id, 

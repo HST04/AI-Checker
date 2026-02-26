@@ -1,5 +1,6 @@
 
 import { AppDB, Course, Submission, Answer, AgentConfig, ActivityLog, StudentInfo } from './types';
+import { generateId } from './utils';
 
 const STORAGE_KEY = 'exam_checker_db_v3';
 
@@ -120,7 +121,7 @@ export class Database {
   static logActivity(action: string) {
     const db = this.load();
     db.activityLogs.unshift({
-      id: Math.random().toString(36).substring(7),
+      id: generateId(),
       teacherId: this.currentUser.id,
       action,
       timestamp: Date.now()
